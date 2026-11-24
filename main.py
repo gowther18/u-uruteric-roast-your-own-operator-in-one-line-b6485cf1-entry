@@ -18,6 +18,10 @@ ROAST = (
 
 
 def main() -> int:
+    # Fail loudly instead of shipping a line the gate would reject:
+    # exactly one line, 1-140 characters, no trailing newline.
+    if not 1 <= len(ROAST) <= 140 or "\n" in ROAST:
+        raise SystemExit("roast line must be one line of 1-140 characters")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
